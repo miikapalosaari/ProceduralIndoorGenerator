@@ -37,3 +37,6 @@ func getDoorways() -> Array[Doorway]:
 		if d is Doorway:
 			result.append(d)
 	return result
+
+func getTileCount() -> int:
+	return getCells().size()

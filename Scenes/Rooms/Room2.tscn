@@ -197,11 +197,10 @@ cell = Vector2i(1, 0)
 [node name="Lights" type="Node3D" parent="." unique_id=1486362400]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 
-[node name="Omni0" type="OmniLight3D" parent="Lights" unique_id=837933579]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
-
-[node name="Omni1" type="OmniLight3D" parent="Lights" unique_id=500501957]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 2)
+[node name="Omni0" type="OmniLight3D" parent="Lights" unique_id=500501957]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 2)
+shadow_enabled = true
+omni_range = 6.401
 
 [node name="Shape" type="Node" parent="." unique_id=2057764978]
 
@@ -210,16 +209,32 @@ script = ExtResource("3_momfn")
 
 [node name="ShapeCell1" type="Node" parent="Shape" unique_id=738232153]
 script = ExtResource("3_momfn")
-cell = Vector2i(-1, 1)
+cell = Vector2i(1, 0)
 
 [node name="ShapeCell2" type="Node" parent="Shape" unique_id=1438835658]
 script = ExtResource("3_momfn")
-cell = Vector2i(0, 1)
+cell = Vector2i(2, 0)
 
 [node name="ShapeCell3" type="Node" parent="Shape" unique_id=1115193712]
 script = ExtResource("3_momfn")
-cell = Vector2i(1, 1)
+cell = Vector2i(0, 1)
 
 [node name="ShapeCell4" type="Node" parent="Shape" unique_id=115880102]
 script = ExtResource("3_momfn")
+cell = Vector2i(1, 1)
+
+[node name="ShapeCell5" type="Node" parent="Shape" unique_id=467658935]
+script = ExtResource("3_momfn")
+cell = Vector2i(2, 1)
+
+[node name="ShapeCell6" type="Node" parent="Shape" unique_id=1158631140]
+script = ExtResource("3_momfn")
 cell = Vector2i(0, 2)
+
+[node name="ShapeCell7" type="Node" parent="Shape" unique_id=1149941485]
+script = ExtResource("3_momfn")
+cell = Vector2i(1, 2)
+
+[node name="ShapeCell8" type="Node" parent="Shape" unique_id=1236463250]
+script = ExtResource("3_momfn")
+cell = Vector2i(2, 2)
