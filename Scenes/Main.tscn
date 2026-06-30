@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://cket73hmm0d04"]
+
+[ext_resource type="Script" uid="uid://cwwxuyi6xbuws" path="res://Scripts/IndoorGenerator.gd" id="1_r150o"]
+[ext_resource type="PackedScene" uid="uid://xdfu8psfj5l1" path="res://Scenes/Rooms/TemplateRoom.tscn" id="2_idj7w"]
+[ext_resource type="Script" uid="uid://dhg0l5k3nrljb" path="res://Scripts/FPSController.gd" id="3_kln2b"]
+[ext_resource type="PackedScene" uid="uid://dgjgs3ajk74i8" path="res://Scenes/Rooms/Room1.tscn" id="3_pbw6q"]
+[ext_resource type="Script" uid="uid://dd3tkxn3vd0lb" path="res://Scripts/Grid.gd" id="4_rgh2o"]
+[ext_resource type="PackedScene" uid="uid://bmej4pvxp6lds" path="res://Scenes/Rooms/Room2.tscn" id="4_v1gob"]
+
+[sub_resource type="Environment" id="Environment_idj7w"]
+background_mode = 1
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kln2b"]
+
+[node name="Main" type="Node3D" unique_id=319296539]
+
+[node name="IndoorGenerator" type="Node" parent="." unique_id=67641626]
+script = ExtResource("1_r150o")
+roomTemplates = Array[PackedScene]([ExtResource("2_idj7w"), ExtResource("3_pbw6q"), ExtResource("4_v1gob")])
+startRoom = ExtResource("2_idj7w")
+roomCount = 20
+placementRadius = 25
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=530422587]
+transform = Transform3D(1, 0, 0, 0, 0.7673554, -0.64122206, 0, 0.64122206, 0.7673554, 0, 60.795444, -31.98175)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=720304663]
+environment = SubResource("Environment_idj7w")
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="." unique_id=1706373099]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+script = ExtResource("3_kln2b")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D" unique_id=431698783]
+shape = SubResource("CapsuleShape3D_kln2b")
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D" unique_id=1547217740]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="IndoorRoot" type="Node3D" parent="." unique_id=1405130578]
+
+[node name="Grid" type="Node" parent="." unique_id=1759409416]
+script = ExtResource("4_rgh2o")
