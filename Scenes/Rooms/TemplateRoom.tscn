@@ -60,13 +60,13 @@ mesh = SubResource("BoxMesh_1blfk")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floors/Floor4" unique_id=926543474]
 shape = SubResource("BoxShape3D_1blfk")
 
-[node name="Floor5" type="StaticBody3D" parent="Floors" unique_id=1793603697]
+[node name="Floor1" type="StaticBody3D" parent="Floors" unique_id=1980214748]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 2)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floors/Floor5" unique_id=897943830]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floors/Floor1" unique_id=455226817]
 mesh = SubResource("BoxMesh_1blfk")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Floors/Floor5" unique_id=860129303]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floors/Floor1" unique_id=778115529]
 shape = SubResource("BoxShape3D_1blfk")
 
 [node name="Walls" type="Node3D" parent="." unique_id=1531438070]
@@ -99,13 +99,13 @@ cell = Vector2i(0, -1)
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Doorways/Doorway2" unique_id=127284009]
 mesh = SubResource("PrismMesh_1blfk")
 
-[node name="Doorway3" type="Marker3D" parent="Doorways" unique_id=186713597]
+[node name="Doorway3" type="Marker3D" parent="Doorways" unique_id=1403407521]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 2)
 script = ExtResource("2_d83gb")
 cell = Vector2i(-2, 1)
 direction = 3
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Doorways/Doorway3" unique_id=2044751005]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Doorways/Doorway3" unique_id=1476825047]
 mesh = SubResource("PrismMesh_1blfk")
 
 [node name="Lights" type="Node3D" parent="." unique_id=1486362400]
@@ -121,6 +121,10 @@ omni_range = 6.292
 [node name="ShapeCell0" type="Node" parent="Shape" unique_id=1612534098]
 script = ExtResource("3_sg5r5")
 
+[node name="ShapeCell1" type="Node" parent="Shape" unique_id=722452977]
+script = ExtResource("3_sg5r5")
+cell = Vector2i(-1, 1)
+
 [node name="ShapeCell2" type="Node" parent="Shape" unique_id=1438835658]
 script = ExtResource("3_sg5r5")
 cell = Vector2i(0, 1)
@@ -132,7 +136,3 @@ cell = Vector2i(1, 1)
 [node name="ShapeCell4" type="Node" parent="Shape" unique_id=115880102]
 script = ExtResource("3_sg5r5")
 cell = Vector2i(0, 2)
-
-[node name="ShapeCell1" type="Node" parent="Shape" unique_id=877585740]
-script = ExtResource("3_sg5r5")
-cell = Vector2i(-1, 1)

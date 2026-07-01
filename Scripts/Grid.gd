@@ -112,3 +112,30 @@ func largestRectangleInHistogram(h: Array) -> Vector2i:
 				if width * height > best.x * best.y:
 					best = Vector2i(width, height)
 	return best
+
+
+func debugDrawOccupiedLines(height: float = 5.0) -> void:
+	var meshInstance: MeshInstance3D = MeshInstance3D.new()
+	var mesh: ImmediateMesh = ImmediateMesh.new()
+	var mat: StandardMaterial3D = StandardMaterial3D.new()
+
+	mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	meshInstance.material_override = mat
+	meshInstance.mesh = mesh
+
+	add_child(meshInstance)
+
+	mesh.clear_surfaces()
+	mesh.surface_begin(Mesh.PRIMITIVE_LINES)
+
+	for cell in occupied.keys():
+		var worldPos: Vector3 = gridToWorld(cell)
+
+		var start: Vector3 = worldPos + Vector3(0, 0.1, 0)
+		var end: Vector3 = worldPos + Vector3(0, height, 0)
+
+		mat.albedo_color = Color.CYAN
+		mesh.surface_add_vertex(start)
+		mesh.surface_add_vertex(end)
+
+	mesh.surface_end()

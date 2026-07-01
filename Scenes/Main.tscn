@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dgjgs3ajk74i8" path="res://Scenes/Rooms/Room1.tscn" id="3_pbw6q"]
 [ext_resource type="PackedScene" uid="uid://bmej4pvxp6lds" path="res://Scenes/Rooms/Room2.tscn" id="3_v1gob"]
 [ext_resource type="Script" uid="uid://dd3tkxn3vd0lb" path="res://Scripts/Grid.gd" id="4_rgh2o"]
+[ext_resource type="PackedScene" uid="uid://xdfu8psfj5l1" path="res://Scenes/Rooms/TemplateRoom.tscn" id="4_v1gob"]
 
 [sub_resource type="Environment" id="Environment_idj7w"]
 background_mode = 1
@@ -15,7 +16,7 @@ background_mode = 1
 
 [node name="IndoorGenerator" type="Node" parent="." unique_id=67641626]
 script = ExtResource("1_r150o")
-roomTemplates = Array[PackedScene]([ExtResource("3_pbw6q"), ExtResource("3_v1gob")])
+roomTemplates = Array[PackedScene]([ExtResource("3_v1gob"), ExtResource("3_pbw6q"), ExtResource("4_v1gob")])
 startRoom = ExtResource("3_v1gob")
 roomCount = 100
 maxPlacementAttempts = 100
@@ -37,3 +38,5 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0
 
 [node name="Grid" type="Node" parent="." unique_id=1759409416]
 script = ExtResource("4_rgh2o")
+gridWidth = 15
+gridHeight = 15

@@ -34,11 +34,14 @@ func generate() -> void:
 	await start.ready
 
 	start.global_position = Vector3.ZERO
-	registerRoom(start)
+	registerRoom(start, 0)
 
 	for d in start.getDoorways():
 		openDoorways.append(d)
 	expand()
+	
+	await get_tree().process_frame
+	grid.debugDrawOccupiedLines(6.0)
 
 func expand() -> void:
 	var attempts: int = 0
@@ -54,41 +57,27 @@ func expand() -> void:
 		
 		root.call_deferred("add_child", newRoom)
 		await newRoom.ready
-
-		if not placeRoomRandom(newRoom):
+		
+		var rot: int = randi() % 4
+		
+		if not placeRoomRandom(newRoom, rot):
 			newRoom.queue_free()
 			attempts += 1
 			continue
 
-		registerRoom(newRoom)
+		registerRoom(newRoom, rot)
 
-func getNormalizedShapeAndDoorCells(room: Room) -> Dictionary:
-	var rawShape: Array[Vector2i] = room.getCells()
-	var rawDoors: Array[Vector2i] = []
-	for d in room.getDoorways():
-		rawDoors.append(d.cell)
-
-	var offset: Vector2i = Vector2i(999999, 999999)
-	for c in rawShape:
-		offset.x = min(offset.x, c.x)
-		offset.y = min(offset.y, c.y)
-
-	var shapeCells: Array[Vector2i] = []
-	for c in rawShape:
-		shapeCells.append(Vector2i(c.x - offset.x, c.y - offset.y))
-
-	var doorCells: Array[Vector2i] = []
-	for c in rawDoors:
-		doorCells.append(Vector2i(c.x - offset.x, c.y - offset.y))
+func getNormalizedShapeAndDoorCells(room: Room, rot: int) -> Dictionary:
+	var rawShape: Array[Vector2i] = room.getRotatedCells(rot)
+	var rawDoors: Array[Vector2i] = room.getRotatedDoorCells(rot)
 
 	return {
-		"offset": offset,
-		"shape": shapeCells,
-		"doors": doorCells
+		"shape": rawShape,
+		"doors": rawDoors
 	}
 
-func placeRoomRandom(room: Room) -> bool:
-	var data: Dictionary = getNormalizedShapeAndDoorCells(room)
+func placeRoomRandom(room: Room, rot: int) -> bool:
+	var data: Dictionary = getNormalizedShapeAndDoorCells(room, rot)
 	var shapeCells: Array[Vector2i] = data["shape"]
 	var doorCells: Array[Vector2i] = data["doors"]
 	var allCells: Array[Vector2i] = shapeCells + doorCells
@@ -118,20 +107,24 @@ func placeRoomRandom(room: Room) -> bool:
 		
 		if grid.canPlace(shapeOffset, doorOffset):
 			room.global_position = grid.gridToWorld(origin)
+			room.rotation_degrees.y = rot * 90
 			return true
 	return false
 
-func registerRoom(room: Room) -> void:
+func registerRoom(room: Room, rot: int) -> void:
 	rooms.append(room)
 
 	var origin: Vector2i = grid.worldToGrid(room.global_position)
-	var data: Dictionary = getNormalizedShapeAndDoorCells(room)
-	var offset: Vector2i = data["offset"]
+	var data: Dictionary = getNormalizedShapeAndDoorCells(room, rot)
 	var shapeCells: Array[Vector2i] = data["shape"]
 	var doorCells: Array[Vector2i] = data["doors"]
 
 	grid.occupyShape(offsetCells(shapeCells, origin), room)
 	grid.occupyDoor(offsetCells(doorCells, origin), room)
+	
+	print("origin =", origin)
+	print("shape =", shapeCells)
+	print("occupied =", offsetCells(shapeCells, origin))
 
 func offsetCells(cells: Array[Vector2i], offset: Vector2i) -> Array[Vector2i]:
 	var result: Array[Vector2i] = []

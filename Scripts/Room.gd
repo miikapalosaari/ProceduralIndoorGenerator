@@ -3,6 +3,7 @@ class_name Room
 
 var shapeNode: Node
 var doorwaysNode: Node
+var gridRotation: int = 0
 
 func _ready() -> void:
 	shapeNode = find_child("Shape", true, false)
@@ -62,4 +63,28 @@ func getNormalizedDoorCells() -> Array[Vector2i]:
 	var result: Array[Vector2i] = []
 	for c in cells:
 		result.append(Vector2i(c.x - min_x, c.y - min_y))
+	return result
+
+func rotateCell(c: Vector2i, rot: int) -> Vector2i:
+	match rot:
+		0:
+			return c
+		1:
+			return Vector2i(c.y, -c.x)
+		2:
+			return Vector2i(-c.x, -c.y)
+		3:
+			return Vector2i(-c.y, c.x)
+	return c
+
+func getRotatedCells(rot: int) -> Array[Vector2i]:
+	var result: Array[Vector2i] = []
+	for c in getCells():
+		result.append(rotateCell(c, rot))
+	return result
+
+func getRotatedDoorCells(rot: int) -> Array[Vector2i]:
+	var result: Array[Vector2i] = []
+	for c in getDoorCells():
+		result.append(rotateCell(c, rot))
 	return result
