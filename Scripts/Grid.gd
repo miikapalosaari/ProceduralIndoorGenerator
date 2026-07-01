@@ -2,7 +2,7 @@ extends Node
 class_name Grid
 
 @export var cellSize: float = 2.0
-var occupied: Dictionary = {}
+var occupied: Dictionary = {}   # cell -> {"room": Room, "type": "shape" or "door"}
 
 @export var gridWidth: int = 80
 @export var gridHeight: int = 80
@@ -10,17 +10,28 @@ var occupied: Dictionary = {}
 func isOccupied(cell: Vector2i) -> bool:
 	return occupied.has(cell)
 
-func canPlace(cells: Array[Vector2i]) -> bool:
-	for c in cells:
+func canPlace(shapeCells: Array[Vector2i], doorCells: Array[Vector2i]) -> bool:
+	for c in shapeCells:
 		if not inBounds(c):
 			return false
 		if occupied.has(c):
 			return false
+
+	for c in doorCells:
+		if not inBounds(c):
+			return false
+		if occupied.has(c):
+			if occupied[c]["type"] == "shape":
+				return false
 	return true
 
-func occupy(cells: Array[Vector2i], room: Room) -> void:
+func occupyShape(cells: Array[Vector2i], room: Room) -> void:
 	for c in cells:
-		occupied[c] = room
+		occupied[c] = {"room": room, "type": "shape"}
+
+func occupyDoor(cells: Array[Vector2i], room: Room) -> void:
+	for c in cells:
+		occupied[c] = {"room": room, "type": "door"}
 
 func gridToWorld(cell: Vector2i) -> Vector3:
 	return Vector3(cell.x * cellSize, 0, cell.y * cellSize)
@@ -54,7 +65,6 @@ func largestEmptyRectangle() -> Vector2i:
 	var best = Vector2i(0, 0)
 
 	for y in gridHeight:
-		# Build histogram row
 		for x in gridWidth:
 			var c = Vector2i(x, y)
 			if not occupied.has(c):
@@ -62,11 +72,9 @@ func largestEmptyRectangle() -> Vector2i:
 			else:
 				heights[x] = 0
 
-		# Compute largest rectangle in this histogram
 		var w_h = largestRectangleInHistogram(heights)
 		if w_h.x * w_h.y > best.x * best.y:
 			best = w_h
-
 	return best
 
 func largestRectangleInHistogram(h: Array) -> Vector2i:
@@ -80,7 +88,7 @@ func largestRectangleInHistogram(h: Array) -> Vector2i:
 			cur = 0
 		else:
 			cur = h[i]
-
+			
 		if stack.is_empty():
 			stack.append(i)
 			i += 1

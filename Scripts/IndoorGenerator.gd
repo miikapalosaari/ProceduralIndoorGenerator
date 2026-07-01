@@ -21,11 +21,10 @@ func _ready() -> void:
 	call_deferred("generate")
 
 func getTemplateTileCount(scene: PackedScene) -> int:
-	var inst = scene.instantiate()
-	var count = inst.getTileCount()
+	var inst: Node = scene.instantiate()
+	var count: int = inst.getTileCount()
 	inst.queue_free()
 	return count
-
 
 func generate() -> void:
 	print("Starting generation")
@@ -63,19 +62,47 @@ func expand() -> void:
 
 		registerRoom(newRoom)
 
-func placeRoomRandom(room: Room) -> bool:
-	var cellsLocal = normalizeCells(room.getCells())
-	var bounds = getRoomBounds(cellsLocal) 
-	
-	var min_x = bounds["min_x"]
-	var max_x = bounds["max_x"]
-	var min_y = bounds["min_y"]
-	var max_y = bounds["max_y"]
+func getNormalizedShapeAndDoorCells(room: Room) -> Dictionary:
+	var rawShape: Array[Vector2i] = room.getCells()
+	var rawDoors: Array[Vector2i] = []
+	for d in room.getDoorways():
+		rawDoors.append(d.cell)
 
-	var origin_min_x = -min_x
-	var origin_max_x = grid.gridWidth - 1 - max_x
-	var origin_min_y = -min_y
-	var origin_max_y = grid.gridHeight - 1 - max_y
+	var offset: Vector2i = Vector2i(999999, 999999)
+	for c in rawShape:
+		offset.x = min(offset.x, c.x)
+		offset.y = min(offset.y, c.y)
+
+	var shapeCells: Array[Vector2i] = []
+	for c in rawShape:
+		shapeCells.append(Vector2i(c.x - offset.x, c.y - offset.y))
+
+	var doorCells: Array[Vector2i] = []
+	for c in rawDoors:
+		doorCells.append(Vector2i(c.x - offset.x, c.y - offset.y))
+
+	return {
+		"offset": offset,
+		"shape": shapeCells,
+		"doors": doorCells
+	}
+
+func placeRoomRandom(room: Room) -> bool:
+	var data: Dictionary = getNormalizedShapeAndDoorCells(room)
+	var shapeCells: Array[Vector2i] = data["shape"]
+	var doorCells: Array[Vector2i] = data["doors"]
+	var allCells: Array[Vector2i] = shapeCells + doorCells
+	var bounds: Dictionary = getRoomBounds(allCells) 
+	
+	var min_x: int = bounds["min_x"]
+	var max_x: int = bounds["max_x"]
+	var min_y: int = bounds["min_y"]
+	var max_y: int = bounds["max_y"]
+
+	var origin_min_x: int = -min_x
+	var origin_max_x: int = grid.gridWidth - 1 - max_x
+	var origin_min_y: int = -min_y
+	var origin_max_y: int = grid.gridHeight - 1 - max_y
 
 	if origin_min_x > origin_max_x or origin_min_y > origin_max_y:
 		return false
@@ -85,9 +112,11 @@ func placeRoomRandom(room: Room) -> bool:
 			randi_range(origin_min_x, origin_max_x),
 			randi_range(origin_min_y, origin_max_y)
 		)
-		var cells = offsetCells(cellsLocal, origin)
-
-		if grid.canPlace(cells):
+		
+		var shapeOffset: Array[Vector2i] = offsetCells(shapeCells, origin)
+		var doorOffset: Array[Vector2i] = offsetCells(doorCells, origin)
+		
+		if grid.canPlace(shapeOffset, doorOffset):
 			room.global_position = grid.gridToWorld(origin)
 			return true
 	return false
@@ -96,11 +125,13 @@ func registerRoom(room: Room) -> void:
 	rooms.append(room)
 
 	var origin: Vector2i = grid.worldToGrid(room.global_position)
-	
-	var cellsLocal = normalizeCells(room.getCells())
-	var cells: Array[Vector2i] = offsetCells(cellsLocal, origin)
+	var data: Dictionary = getNormalizedShapeAndDoorCells(room)
+	var offset: Vector2i = data["offset"]
+	var shapeCells: Array[Vector2i] = data["shape"]
+	var doorCells: Array[Vector2i] = data["doors"]
 
-	grid.occupy(cells, room)
+	grid.occupyShape(offsetCells(shapeCells, origin), room)
+	grid.occupyDoor(offsetCells(doorCells, origin), room)
 
 func offsetCells(cells: Array[Vector2i], offset: Vector2i) -> Array[Vector2i]:
 	var result: Array[Vector2i] = []
@@ -109,8 +140,8 @@ func offsetCells(cells: Array[Vector2i], offset: Vector2i) -> Array[Vector2i]:
 	return result
 
 func canAnyTemplateFit() -> bool:
-	var rect = grid.largestEmptyRectangle()
-	var maxArea = rect.x * rect.y
+	var rect: Vector2i = grid.largestEmptyRectangle()
+	var maxArea: int = rect.x * rect.y
 
 	for t in roomTemplates:
 		if templateSizes[t] <= maxArea:
@@ -120,8 +151,8 @@ func canAnyTemplateFit() -> bool:
 
 
 func normalizeCells(cells: Array[Vector2i]) -> Array[Vector2i]:
-	var min_x := 999999
-	var min_y := 999999
+	var min_x: int = 999999
+	var min_y: int = 999999
 
 	for c in cells:
 		if c.x < min_x:
@@ -135,10 +166,10 @@ func normalizeCells(cells: Array[Vector2i]) -> Array[Vector2i]:
 	return result
 
 func getRoomBounds(cells: Array[Vector2i]) -> Dictionary:
-	var min_x := 999999
-	var max_x := -999999
-	var min_y := 999999
-	var max_y := -999999
+	var min_x: int = 999999
+	var max_x: int = -999999
+	var min_y: int = 999999
+	var max_y: int = -999999
 
 	for c in cells:
 		if c.x < min_x:

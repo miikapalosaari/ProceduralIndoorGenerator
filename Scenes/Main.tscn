@@ -16,12 +16,9 @@ background_mode = 1
 [node name="IndoorGenerator" type="Node" parent="." unique_id=67641626]
 script = ExtResource("1_r150o")
 roomTemplates = Array[PackedScene]([ExtResource("3_pbw6q"), ExtResource("3_v1gob")])
-startRoom = ExtResource("3_pbw6q")
-roomCount = 20
+startRoom = ExtResource("3_v1gob")
+roomCount = 100
 maxPlacementAttempts = 100
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=530422587]
-transform = Transform3D(1, 0, 0, 0, 0.7673554, -0.64122206, 0, 0.64122206, 0.7673554, 0, 60.795444, -31.98175)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=720304663]
 environment = SubResource("Environment_idj7w")
@@ -40,5 +37,3 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0
 
 [node name="Grid" type="Node" parent="." unique_id=1759409416]
 script = ExtResource("4_rgh2o")
-gridWidth = 30
-gridHeight = 30
