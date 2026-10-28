@@ -40,7 +40,9 @@ func worldToGrid(pos: Vector3) -> Vector2i:
 	return Vector2i(roundi(pos.x / cellSize), roundi(pos.z / cellSize))
 
 func inBounds(cell: Vector2i) -> bool:
-	return cell.x >= 0 and cell.x < gridWidth and cell.y >= 0 and cell.y < gridHeight
+	var halfW = gridWidth / 2
+	var halfH = gridHeight / 2
+	return cell.x >= -halfW and cell.x < halfW and cell.y >= -halfH and cell.y < halfH
 
 func getUnoccupiedCells() -> Array[Vector2i]:
 	var result: Array[Vector2i] = []
@@ -139,3 +141,13 @@ func debugDrawOccupiedLines(height: float = 5.0) -> void:
 		mesh.surface_add_vertex(end)
 
 	mesh.surface_end()
+
+func occupyTileBlock(originCell: Vector2i, size: Vector2i, ownerObject: Object, typeTag: String) -> void:
+	for x in range(size.x):
+		for y in range(size.y):
+			var cell = originCell + Vector2i(x, y)
+			occupied[cell] = {"room": ownerObject, "type": typeTag}
+
+# Checks if a cell is solid/occupied (used by StitchTile to check adjacent rooms)
+func isSolidFloor(cell: Vector2i) -> bool:
+	return occupied.has(cell)

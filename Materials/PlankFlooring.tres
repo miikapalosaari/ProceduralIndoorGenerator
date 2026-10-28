@@ -1,0 +1,18 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://chpnbipnkjmqv"]
+
+[ext_resource type="Texture2D" uid="uid://b65e7cgighunl" path="res://Textures/plank_flooring/plank_flooring_diffuse_1k.jpg" id="1_hywyw"]
+[ext_resource type="Texture2D" uid="uid://bmmjjg73t5c7j" path="res://Textures/plank_flooring/plank_flooring_orm_1k.jpg" id="2_e8sca"]
+[ext_resource type="Texture2D" uid="uid://7573auq0bq7s" path="res://Textures/plank_flooring/plank_flooring_normal_1k.jpg" id="3_7pkk3"]
+
+[resource]
+albedo_texture = ExtResource("1_hywyw")
+metallic = 1.0
+metallic_texture = ExtResource("2_e8sca")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("2_e8sca")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("3_7pkk3")
+ao_enabled = true
+ao_texture = ExtResource("2_e8sca")
+uv1_scale = Vector3(4, 4, 4)

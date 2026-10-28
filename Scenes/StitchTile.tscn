@@ -1,0 +1,86 @@
+[gd_scene format=3 uid="uid://cs87oc0je0g2e"]
+
+[ext_resource type="Script" uid="uid://db30oqbfehxid" path="res://Scripts/StitchTile.gd" id="1_0nath"]
+[ext_resource type="Material" uid="uid://bxm8odhkgbs41" path="res://Materials/TiledFlooring.tres" id="1_sv4pg"]
+[ext_resource type="Material" uid="uid://dlfs3rjr4noog" path="res://Materials/WoodenPanels.tres" id="2_nfq4s"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_nfq4s"]
+size = Vector3(2, 0.1, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0nath"]
+size = Vector3(2, 0.1, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_0nath"]
+size = Vector3(2, 0.1, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nb72e"]
+size = Vector3(2, 0.1, 2)
+
+[node name="StitchTile" type="Node3D" unique_id=1972345408 node_paths=PackedStringArray("wallNorth", "wallEast", "wallSouth", "wallWest")]
+script = ExtResource("1_0nath")
+wallNorth = NodePath("Walls/WallNorth")
+wallEast = NodePath("Walls/WallEast")
+wallSouth = NodePath("Walls/WallSouth")
+wallWest = NodePath("Walls/WallWest")
+
+[node name="Floor" type="StaticBody3D" parent="." unique_id=888229189]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=936743130]
+material_override = ExtResource("1_sv4pg")
+mesh = SubResource("BoxMesh_nfq4s")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=1733868462]
+shape = SubResource("BoxShape3D_0nath")
+
+[node name="Walls" type="Node3D" parent="." unique_id=1159519640]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+
+[node name="WallNorth" type="StaticBody3D" parent="Walls" unique_id=1605849468]
+transform = Transform3D(1, 0, 0, 0, -4.3711385e-08, -0.99999994, 0, 0.99999994, -4.3711385e-08, 0, 1, -1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Walls/WallNorth" unique_id=679650908]
+material_override = ExtResource("2_nfq4s")
+mesh = SubResource("BoxMesh_0nath")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/WallNorth" unique_id=1294638095]
+shape = SubResource("BoxShape3D_nb72e")
+
+[node name="WallSouth" type="StaticBody3D" parent="Walls" unique_id=1004994000]
+transform = Transform3D(1, 0, 0, 0, -4.3711385e-08, -0.99999994, 0, 0.99999994, -4.3711385e-08, 0, 1, 1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Walls/WallSouth" unique_id=94080000]
+transform = Transform3D(1, 0, 0, 0, 0.9999998, 3.5527137e-15, 0, -3.5527137e-15, 0.9999998, 0, 0, 0)
+material_override = ExtResource("2_nfq4s")
+mesh = SubResource("BoxMesh_0nath")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/WallSouth" unique_id=397659351]
+shape = SubResource("BoxShape3D_nb72e")
+
+[node name="WallEast" type="StaticBody3D" parent="Walls" unique_id=781721721]
+transform = Transform3D(-4.371139e-08, -0.99999994, 4.3711385e-08, 0, -4.371138e-08, -0.9999999, 0.99999994, -4.371138e-08, 1.9106853e-15, 1, 1, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Walls/WallEast" unique_id=628906891]
+material_override = ExtResource("2_nfq4s")
+mesh = SubResource("BoxMesh_0nath")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/WallEast" unique_id=1501415999]
+shape = SubResource("BoxShape3D_nb72e")
+
+[node name="WallWest" type="StaticBody3D" parent="Walls" unique_id=990093911]
+transform = Transform3D(-4.371139e-08, -0.99999994, 4.3711385e-08, 0, -4.371138e-08, -0.9999999, 0.99999994, -4.371138e-08, 1.9106853e-15, -1, 1, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Walls/WallWest" unique_id=3435624]
+transform = Transform3D(0.9999666, 2.518874e-12, -3.1551977e-20, -2.518874e-12, 0.9999666, 1.9895197e-12, 5.27278e-20, -5.2935434e-13, 1, 0, 0, 0)
+material_override = ExtResource("2_nfq4s")
+mesh = SubResource("BoxMesh_0nath")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/WallWest" unique_id=1075951637]
+shape = SubResource("BoxShape3D_nb72e")
+
+[node name="Lights" type="Node3D" parent="." unique_id=1751409359]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="Omni2" type="OmniLight3D" parent="Lights" unique_id=391696383]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5258739, 0)
+shadow_enabled = true
+omni_range = 6.292

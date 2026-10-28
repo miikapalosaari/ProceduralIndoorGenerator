@@ -1,0 +1,18 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://dlfs3rjr4noog"]
+
+[ext_resource type="Texture2D" uid="uid://sytlwl08eo3n" path="res://Textures/wooden_panels/wooden_panels_diffuse_1k.jpg" id="1_3t7jf"]
+[ext_resource type="Texture2D" uid="uid://boptx1stc876g" path="res://Textures/wooden_panels/wooden_panels_orm_1k.jpg" id="2_j4qll"]
+[ext_resource type="Texture2D" uid="uid://bl2e0oiekim2" path="res://Textures/wooden_panels/wooden_panels_normal_1k.jpg" id="3_jk44v"]
+
+[resource]
+albedo_texture = ExtResource("1_3t7jf")
+metallic = 1.0
+metallic_texture = ExtResource("2_j4qll")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("2_j4qll")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("3_jk44v")
+ao_enabled = true
+ao_texture = ExtResource("2_j4qll")
+uv1_scale = Vector3(3, 2, 3)

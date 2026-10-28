@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://cw4i2gd86tcoq"]
+
+[ext_resource type="Material" uid="uid://dlfs3rjr4noog" path="res://Materials/WoodenPanels.tres" id="1_y4wft"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_jp8y6"]
+size = Vector3(2, 0.1, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qklhp"]
+size = Vector3(2, 0.1, 2)
+
+[node name="DoorwayBlocker" type="Node3D" unique_id=1823746990]
+
+[node name="WallMesh" type="StaticBody3D" parent="." unique_id=1726062503]
+transform = Transform3D(1, 0, 0, 0, -4.3711385e-08, -0.99999994, 0, 0.99999994, -4.3711385e-08, 0, 1, -1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WallMesh" unique_id=1430258423]
+material_override = ExtResource("1_y4wft")
+mesh = SubResource("BoxMesh_jp8y6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallMesh" unique_id=97496370]
+shape = SubResource("BoxShape3D_qklhp")

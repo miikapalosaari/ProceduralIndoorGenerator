@@ -1,0 +1,18 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bxm8odhkgbs41"]
+
+[ext_resource type="Texture2D" uid="uid://gmgky8a22oxn" path="res://Textures/floor_tiled/WoodFloor026_4K_Color.jpg" id="1_kawl1"]
+[ext_resource type="Texture2D" uid="uid://dqhw457orvptp" path="res://Textures/floor_tiled/WoodFloor026_4K_AmbientOcclusion.jpg" id="2_3wru7"]
+[ext_resource type="Texture2D" uid="uid://dom87xxos6qi0" path="res://Textures/floor_tiled/WoodFloor026_4K_Displacement.jpg" id="3_3r5ab"]
+[ext_resource type="Texture2D" uid="uid://bdbnuribkkm5g" path="res://Textures/floor_tiled/WoodFloor026_4K_NormalDX.jpg" id="4_iw0pd"]
+[ext_resource type="Texture2D" uid="uid://bpbh7ic4dckwc" path="res://Textures/floor_tiled/WoodFloor026_4K_Roughness.jpg" id="5_g0ifj"]
+
+[resource]
+albedo_texture = ExtResource("1_kawl1")
+roughness_texture = ExtResource("5_g0ifj")
+normal_enabled = true
+normal_texture = ExtResource("4_iw0pd")
+ao_enabled = true
+ao_texture = ExtResource("2_3wru7")
+heightmap_enabled = true
+heightmap_texture = ExtResource("3_3r5ab")
+uv1_scale = Vector3(3, 3, 3)

@@ -1,11 +1,28 @@
 [gd_scene format=3 uid="uid://cket73hmm0d04"]
 
 [ext_resource type="Script" uid="uid://cwwxuyi6xbuws" path="res://Scripts/IndoorGenerator.gd" id="1_r150o"]
+[ext_resource type="Script" uid="uid://ck55p226iu1ev" path="res://Scripts/RoomDefinition.gd" id="2_50glp"]
 [ext_resource type="Script" uid="uid://dhg0l5k3nrljb" path="res://Scripts/FPSController.gd" id="3_kln2b"]
-[ext_resource type="PackedScene" uid="uid://dgjgs3ajk74i8" path="res://Scenes/Rooms/Room1.tscn" id="3_pbw6q"]
-[ext_resource type="PackedScene" uid="uid://bmej4pvxp6lds" path="res://Scenes/Rooms/Room2.tscn" id="3_v1gob"]
 [ext_resource type="Script" uid="uid://dd3tkxn3vd0lb" path="res://Scripts/Grid.gd" id="4_rgh2o"]
-[ext_resource type="PackedScene" uid="uid://xdfu8psfj5l1" path="res://Scenes/Rooms/TemplateRoom.tscn" id="4_v1gob"]
+[ext_resource type="PackedScene" uid="uid://bbavk1u24d6wg" path="res://Scenes/Rooms/StraightCorridorShort.tscn" id="7_1p5hy"]
+[ext_resource type="PackedScene" uid="uid://bw2lwb78t0vvj" path="res://Scenes/Rooms/Room1.tscn" id="8_h1m7h"]
+[ext_resource type="PackedScene" uid="uid://cs87oc0je0g2e" path="res://Scenes/StitchTile.tscn" id="9_4kpch"]
+
+[sub_resource type="Resource" id="Resource_td7gg"]
+script = ExtResource("2_50glp")
+scene = ExtResource("8_h1m7h")
+metadata/_custom_type_script = "uid://ck55p226iu1ev"
+
+[sub_resource type="Resource" id="Resource_i7224"]
+script = ExtResource("2_50glp")
+scene = ExtResource("7_1p5hy")
+tags = Array[String](["corridor"])
+metadata/_custom_type_script = "uid://ck55p226iu1ev"
+
+[sub_resource type="Resource" id="Resource_iyjby"]
+script = ExtResource("2_50glp")
+scene = ExtResource("8_h1m7h")
+metadata/_custom_type_script = "uid://ck55p226iu1ev"
 
 [sub_resource type="Environment" id="Environment_idj7w"]
 background_mode = 1
@@ -16,10 +33,10 @@ background_mode = 1
 
 [node name="IndoorGenerator" type="Node" parent="." unique_id=67641626]
 script = ExtResource("1_r150o")
-roomTemplates = Array[PackedScene]([ExtResource("3_v1gob"), ExtResource("3_pbw6q"), ExtResource("4_v1gob")])
-startRoom = ExtResource("3_v1gob")
+roomDefinitions = Array[ExtResource("2_50glp")]([SubResource("Resource_td7gg"), SubResource("Resource_i7224")])
+startRoomDef = SubResource("Resource_iyjby")
+stitchTileScene = ExtResource("9_4kpch")
 roomCount = 100
-maxPlacementAttempts = 100
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=720304663]
 environment = SubResource("Environment_idj7w")
@@ -38,5 +55,5 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0
 
 [node name="Grid" type="Node" parent="." unique_id=1759409416]
 script = ExtResource("4_rgh2o")
-gridWidth = 15
-gridHeight = 15
+gridWidth = 100
+gridHeight = 100
