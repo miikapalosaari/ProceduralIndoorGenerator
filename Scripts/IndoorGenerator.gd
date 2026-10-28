@@ -48,7 +48,7 @@ func generate() -> void:
 	sealUnconnectedDoors()
 	
 	await get_tree().process_frame
-	grid.debugDrawOccupiedLines(6.0)
+	#grid.debugDrawOccupiedLines(6.0)
 
 func expand() -> void:
 	var maxTotalLoops: int = 10000

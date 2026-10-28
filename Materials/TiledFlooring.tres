@@ -15,4 +15,5 @@ ao_enabled = true
 ao_texture = ExtResource("2_3wru7")
 heightmap_enabled = true
 heightmap_texture = ExtResource("3_3r5ab")
-uv1_scale = Vector3(3, 3, 3)
+uv1_triplanar = true
+uv1_world_triplanar = true

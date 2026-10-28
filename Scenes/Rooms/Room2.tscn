@@ -4,7 +4,6 @@
 [ext_resource type="Script" uid="uid://bl6gmd1mnylfm" path="res://Scripts/Doorway.gd" id="2_mo16p"]
 [ext_resource type="Material" uid="uid://bxm8odhkgbs41" path="res://Materials/TiledFlooring.tres" id="2_momfn"]
 [ext_resource type="Material" uid="uid://dlfs3rjr4noog" path="res://Materials/WoodenPanels.tres" id="3_cuhup"]
-[ext_resource type="Script" uid="uid://b6rbyku17ojf4" path="res://Scripts/ShapeCell.gd" id="3_momfn"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_1blfk"]
 size = Vector3(2, 0.1, 2)
@@ -14,6 +13,7 @@ size = Vector3(2, 0.1, 2)
 
 [node name="TemplateRoom" type="Node3D" unique_id=1333050159]
 script = ExtResource("1_wwlvj")
+floorsPath = NodePath("Floors")
 
 [node name="Floors" type="Node3D" parent="." unique_id=935390367]
 
@@ -129,6 +129,26 @@ mesh = SubResource("BoxMesh_1blfk")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/Wall1" unique_id=817585697]
 shape = SubResource("BoxShape3D_1blfk")
 
+[node name="Wall8" type="StaticBody3D" parent="Walls" unique_id=1025867636]
+transform = Transform3D(1, 0, 0, 0, -4.3711385e-08, -0.99999994, 0, 0.99999994, -4.3711385e-08, 2, 0.99999994, -1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Walls/Wall8" unique_id=1464180587]
+material_override = ExtResource("3_cuhup")
+mesh = SubResource("BoxMesh_1blfk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/Wall8" unique_id=1354971388]
+shape = SubResource("BoxShape3D_1blfk")
+
+[node name="Wall9" type="StaticBody3D" parent="Walls" unique_id=1753199437]
+transform = Transform3D(-4.371139e-08, 0.99999994, -4.3711385e-08, 0, -4.371138e-08, -0.9999999, -0.99999994, -4.371138e-08, 1.9106853e-15, -1, 0.99999994, 2)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Walls/Wall9" unique_id=835675786]
+material_override = ExtResource("3_cuhup")
+mesh = SubResource("BoxMesh_1blfk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/Wall9" unique_id=1500607181]
+shape = SubResource("BoxShape3D_1blfk")
+
 [node name="Wall2" type="StaticBody3D" parent="Walls" unique_id=2079147837]
 transform = Transform3D(1, 0, 0, 0, -4.3711385e-08, -0.99999994, 0, 0.99999994, -4.3711385e-08, 0, 1, -1)
 
@@ -194,29 +214,14 @@ shape = SubResource("BoxShape3D_1blfk")
 [node name="Doorway0" type="Marker3D" parent="Doorways" unique_id=1247880889]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 2)
 script = ExtResource("2_mo16p")
-cell = Vector2i(2, 1)
 direction = 1
-required_tags = Array[String](["corridor", "room"])
-
-[node name="Doorway1" type="Marker3D" parent="Doorways" unique_id=663372456]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
-script = ExtResource("2_mo16p")
-cell = Vector2i(0, 1)
-direction = 3
-required_tags = Array[String](["corridor", "room"])
+requiredTags = Array[String](["corridor", "room"])
 
 [node name="Doorway2" type="Marker3D" parent="Doorways" unique_id=450554908]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 4)
 script = ExtResource("2_mo16p")
-cell = Vector2i(1, 2)
 direction = 2
-required_tags = Array[String](["corridor", "room"])
-
-[node name="Doorway3" type="Marker3D" parent="Doorways" unique_id=1591053205]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
-script = ExtResource("2_mo16p")
-cell = Vector2i(1, 0)
-required_tags = Array[String](["corridor", "room"])
+requiredTags = Array[String](["corridor", "room"])
 
 [node name="Lights" type="Node3D" parent="." unique_id=1486362400]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
@@ -225,40 +230,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 2)
 shadow_enabled = true
 omni_range = 6.401
-
-[node name="Shape" type="Node" parent="." unique_id=2057764978]
-
-[node name="ShapeCell0" type="Node" parent="Shape" unique_id=1612534098]
-script = ExtResource("3_momfn")
-
-[node name="ShapeCell1" type="Node" parent="Shape" unique_id=738232153]
-script = ExtResource("3_momfn")
-cell = Vector2i(1, 0)
-
-[node name="ShapeCell2" type="Node" parent="Shape" unique_id=1438835658]
-script = ExtResource("3_momfn")
-cell = Vector2i(2, 0)
-
-[node name="ShapeCell3" type="Node" parent="Shape" unique_id=1115193712]
-script = ExtResource("3_momfn")
-cell = Vector2i(0, 1)
-
-[node name="ShapeCell4" type="Node" parent="Shape" unique_id=115880102]
-script = ExtResource("3_momfn")
-cell = Vector2i(1, 1)
-
-[node name="ShapeCell5" type="Node" parent="Shape" unique_id=467658935]
-script = ExtResource("3_momfn")
-cell = Vector2i(2, 1)
-
-[node name="ShapeCell6" type="Node" parent="Shape" unique_id=1158631140]
-script = ExtResource("3_momfn")
-cell = Vector2i(0, 2)
-
-[node name="ShapeCell7" type="Node" parent="Shape" unique_id=1149941485]
-script = ExtResource("3_momfn")
-cell = Vector2i(1, 2)
-
-[node name="ShapeCell8" type="Node" parent="Shape" unique_id=1236463250]
-script = ExtResource("3_momfn")
-cell = Vector2i(2, 2)

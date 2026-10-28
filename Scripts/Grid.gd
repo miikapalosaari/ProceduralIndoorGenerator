@@ -2,7 +2,7 @@ extends Node
 class_name Grid
 
 @export var cellSize: float = 2.0
-var occupied: Dictionary = {}   # cell -> {"room": Room, "type": "shape" or "door"}
+var occupied: Dictionary = {}
 
 @export var gridWidth: int = 80
 @export var gridHeight: int = 80

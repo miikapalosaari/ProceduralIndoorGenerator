@@ -2,15 +2,14 @@ extends Marker3D
 class_name Doorway
 
 enum Direction { NORTH, EAST, SOUTH, WEST }
-
-@export var cell: Vector2i
-@export var direction: Direction
-@export var requiredTags: Array[String] = ["corridor"]
-
 var connected: bool = false
+var cell: Vector2i
 var worldCell: Vector2i
 var worldDir: int
 var attachedRoomTags: Array[String] = []
+
+@export var direction: Direction
+@export var requiredTags: Array[String] = ["corridor"]
 
 static func getDirVector(dir: int) -> Vector2i:
 	match dir % 4:

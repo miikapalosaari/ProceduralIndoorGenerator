@@ -3,7 +3,9 @@
 [ext_resource type="Script" uid="uid://cwwxuyi6xbuws" path="res://Scripts/IndoorGenerator.gd" id="1_r150o"]
 [ext_resource type="Script" uid="uid://ck55p226iu1ev" path="res://Scripts/RoomDefinition.gd" id="2_50glp"]
 [ext_resource type="Script" uid="uid://dhg0l5k3nrljb" path="res://Scripts/FPSController.gd" id="3_kln2b"]
+[ext_resource type="PackedScene" uid="uid://bmej4pvxp6lds" path="res://Scenes/Rooms/Room2.tscn" id="3_v1gob"]
 [ext_resource type="Script" uid="uid://dd3tkxn3vd0lb" path="res://Scripts/Grid.gd" id="4_rgh2o"]
+[ext_resource type="PackedScene" uid="uid://crexsi5xjgogj" path="res://Scenes/Rooms/CrossJunction.tscn" id="5_grg3l"]
 [ext_resource type="PackedScene" uid="uid://bbavk1u24d6wg" path="res://Scenes/Rooms/StraightCorridorShort.tscn" id="7_1p5hy"]
 [ext_resource type="PackedScene" uid="uid://bw2lwb78t0vvj" path="res://Scenes/Rooms/Room1.tscn" id="8_h1m7h"]
 [ext_resource type="PackedScene" uid="uid://cs87oc0je0g2e" path="res://Scenes/StitchTile.tscn" id="9_4kpch"]
@@ -17,6 +19,19 @@ metadata/_custom_type_script = "uid://ck55p226iu1ev"
 script = ExtResource("2_50glp")
 scene = ExtResource("7_1p5hy")
 tags = Array[String](["corridor"])
+weight = 60
+metadata/_custom_type_script = "uid://ck55p226iu1ev"
+
+[sub_resource type="Resource" id="Resource_dsrc0"]
+script = ExtResource("2_50glp")
+scene = ExtResource("5_grg3l")
+maxCount = 3
+metadata/_custom_type_script = "uid://ck55p226iu1ev"
+
+[sub_resource type="Resource" id="Resource_mo16p"]
+script = ExtResource("2_50glp")
+scene = ExtResource("3_v1gob")
+maxCount = 8
 metadata/_custom_type_script = "uid://ck55p226iu1ev"
 
 [sub_resource type="Resource" id="Resource_iyjby"]
@@ -33,8 +48,9 @@ background_mode = 1
 
 [node name="IndoorGenerator" type="Node" parent="." unique_id=67641626]
 script = ExtResource("1_r150o")
-roomDefinitions = Array[ExtResource("2_50glp")]([SubResource("Resource_td7gg"), SubResource("Resource_i7224")])
+roomDefinitions = Array[ExtResource("2_50glp")]([SubResource("Resource_td7gg"), SubResource("Resource_i7224"), SubResource("Resource_dsrc0"), SubResource("Resource_mo16p")])
 startRoomDef = SubResource("Resource_iyjby")
+maxStitchDistance = 3
 stitchTileScene = ExtResource("9_4kpch")
 roomCount = 100
 
